@@ -1,8 +1,11 @@
 package com.example.blue.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+import lombok.Getter;
+import lombok.Setter;
 
-
+@Getter
+@Setter
 @Entity
 public class Product {
     @Id
@@ -22,14 +25,4 @@ public class Product {
         this.price=price;
         this.stock=stock;
     }
-
-    public Long getId(){return id;}
-    public String getName(){return name;}
-    public int getPrice(){return price;}
-    public int getStock(){return stock;}
-
-    public void setName(String name){this.name=name;}
-    public void setPrice(int price){this.price=price;}
-    public void setStock(int stock){this.stock=stock;}
-
 }
