@@ -21,4 +21,8 @@ public class GlobalExceptionHandler {
         ex.printStackTrace();
         return new ResponseEntity<>("Something went wrong",HttpStatus.INTERNAL_SERVER_ERROR);
     }
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<String>handleRuntimeException(RuntimeException ex) {
+        return new ResponseEntity<>(ex.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }
