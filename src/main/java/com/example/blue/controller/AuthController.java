@@ -4,6 +4,7 @@ import com.example.blue.DTO.AuthResponse;
 import com.example.blue.DTO.LoginRequest;
 import com.example.blue.DTO.RegisterRequest;
 import com.example.blue.service.AuthService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,12 +18,12 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping("/register")
-    public AuthResponse register(
+    public AuthResponse register(@Valid
             @RequestBody RegisterRequest request) {
                 return authService.register(request);
     }
     @PostMapping("/login")
-    public AuthResponse login(
+    public AuthResponse login(@Valid
             @RequestBody LoginRequest request) {
                 return authService.login(request);
     }

@@ -1,14 +1,18 @@
 package com.example.blue.controller;
 
 import com.example.blue.model.Product;
+import com.example.blue.security.JwtFilter;
+import com.example.blue.security.JwtService;
 import com.example.blue.service.ProductService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -27,12 +31,20 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 @WebMvcTest(ProductController.class)
+@AutoConfigureMockMvc(addFilters = false)
 class ProductControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
     @MockitoBean
     private ProductService service;
+
+    @MockitoBean
+    private JwtService jwtService;
+    @MockitoBean
+    private JwtFilter jwtFilter;
+    @MockitoBean
+    private PasswordEncoder passwordEncoder;
 
     @Test
     void shouldReturnProductsById() throws Exception {

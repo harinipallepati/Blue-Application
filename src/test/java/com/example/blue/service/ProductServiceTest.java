@@ -3,6 +3,8 @@ package com.example.blue.service;
 import com.example.blue.exception.ResourceNotFoundException;
 import com.example.blue.model.Product;
 import com.example.blue.repository.ProductRepository;
+import com.example.blue.security.JwtFilter;
+import com.example.blue.security.JwtService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -11,6 +13,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +32,13 @@ public class ProductServiceTest {
     private ProductRepository repository;
     @InjectMocks
     private ProductService service;
+
+    @MockitoBean
+    private JwtService jwtService;
+    @MockitoBean
+    private JwtFilter jwtFilter;
+    @MockitoBean
+    private PasswordEncoder passwordEncoder;
 
     @Test
     void testGetProductById() {
