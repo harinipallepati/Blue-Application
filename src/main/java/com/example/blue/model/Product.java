@@ -17,6 +17,7 @@ public class Product {
     private int price;
     @Min(value = 0)
     private int stock;
+    private String description;
 
     public Product() {}
 

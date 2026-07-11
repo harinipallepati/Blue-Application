@@ -3,20 +3,22 @@ package com.example.blue.service;
 import com.example.blue.exception.ResourceNotFoundException;
 import com.example.blue.model.Product;
 import com.example.blue.repository.ProductRepository;
-import jakarta.validation.constraints.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import java.util.List;
 @Service
 
 public class ProductService {
     @Autowired
+    private GeminiService geminiService;
+    @Autowired
     private ProductRepository repository;
-    public Product addProduct(Product Product){
-        return repository.save(Product);
+    public Product addProduct(Product product) {
+        String description=geminiService.generateDescription(product);
+        product.setDescription(description);
+        return repository.save(product);
     }
     public Product getProductById(Long id){
         return repository.findById(id).orElseThrow(()->new ResourceNotFoundException("Product not found with id:"+ id));
