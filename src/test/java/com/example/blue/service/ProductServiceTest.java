@@ -33,12 +33,8 @@ public class ProductServiceTest {
     @InjectMocks
     private ProductService service;
 
-    @MockitoBean
-    private JwtService jwtService;
-    @MockitoBean
-    private JwtFilter jwtFilter;
-    @MockitoBean
-    private PasswordEncoder passwordEncoder;
+    @Mock
+    private GeminiService geminiService;
 
     @Test
     void testGetProductById() {
@@ -70,8 +66,11 @@ public class ProductServiceTest {
         p1.setPrice(82000);
         p1.setStock(10);
 
+        when(geminiService.generateDescription(p1))
+                .thenReturn("Test Description");
         when(repository.save(p1))
                 .thenReturn(p1);
+
         Product result=service.addProduct(p1);
 
         assertEquals("Mac Book",result.getName());
